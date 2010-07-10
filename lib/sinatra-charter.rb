@@ -15,7 +15,7 @@ module Sinatra
           @chart = params[:chart]
         end
 
-        if File.exists? chart_path
+        if File.exists? chart_full_path
           chart_url
         else
           self.send "render_#{@chart['kind']}_chart"
@@ -23,13 +23,21 @@ module Sinatra
         end
       end
 
-      def chart_path
-        @chart_path ||= "public/charts/#{Digest::MD5.hexdigest @chart.to_s}.png"
+      def charts_dir
+        @charts_dir ||= "public/charts"
+      end
+
+      def chart_file_name
+        @chart_file_name ||= "#{Digest::MD5.hexdigest @chart.to_s}.png"
+      end
+
+      def chart_full_path
+        @chart_full_path ||= File.join(charts_dir, chart_file_name)
       end
 
       def chart_url
         hostname = /^http:\/\/([\w\.]+).*/.match(request.url)[1]
-        @chart_url ||= {"chart_url" => "http://#{hostname}/charts/#{chart_path}"}.to_json
+        @chart_url ||= {"chart_url" => "http://#{hostname}/charts/#{chart_file_name}"}.to_json
       end
 
       def chart_theme
