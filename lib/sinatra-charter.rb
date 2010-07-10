@@ -59,7 +59,7 @@ module Sinatra
         g.title = @chart['title']
         g.labels = @chart['labels']
         @chart['data'].each { |i| g.data i.first.to_i, i.last }
-        g.write chart_path
+        g.write chart_full_path
       end
     end
   end
