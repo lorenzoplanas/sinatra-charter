@@ -7,7 +7,7 @@ module Sinatra
   module Charter
     module Helpers
       def send_chart_url(options = {})
-        content :json
+        content_type :json
 
         if options[:from] == 'json'
           @chart = JSON.parse request.body.read.to_s 
@@ -46,7 +46,7 @@ module Sinatra
       end
 
       def render_bar_chart
-        g = Gruff::Bar.new(@chart['size'].to_i)
+        g = Gruff::Bar.new(@chart['size'])
         g.theme = chart_theme
         g.title = @chart['title']
         g.labels = @chart['labels']
