@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "sinatra-charter"
     gem.summary = %Q{Static charts server using Sinatra and Gruff}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.description = %Q{Static charts server using Sinatra and Gruff}
     gem.email = "lplanas@qindio.com"
     gem.homepage = "http://github.com/lplanas/sinatra-charter"
     gem.authors = ["Lorenzo Planas"]
