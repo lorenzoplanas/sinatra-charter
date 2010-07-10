@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/sinatra-charter.rb",
-     "sinatra-charter-0.1.1.gem",
      "sinatra-charter.gemspec",
      "test/helper.rb",
      "test/test_sinatra-charter.rb"
