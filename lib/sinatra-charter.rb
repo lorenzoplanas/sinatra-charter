@@ -53,12 +53,42 @@ module Sinatra
         end
       end
 
-      def render_bar_chart
+      def render_bar_chart(options = {})
+        labels = {}
+        @chart['labels'].each_pair {|k,v| labels[k.to_i] = v}
         g = Gruff::Bar.new(@chart['size'])
         g.theme = chart_theme
         g.title = @chart['title']
-        g.labels = @chart['labels']
-        @chart['data'].each { |i| g.data i.first.to_i, i.last }
+        g.labels = labels
+        g.data @chart['data'].first, @chart['data'].last.map(&:to_i)
+        g.bar_spacing = 0.8
+        options.each_pair { |k, v| g.send :"#{k}=", v }
+        g.write chart_full_path
+      end
+
+      def render_hbar_chart(options = {})
+        labels = {}
+        @chart['labels'].each_pair {|k,v| labels[k.to_i] = v}
+        g = Gruff::SideBar.new(@chart['size'])
+        g.theme = chart_theme
+        g.title = @chart['title']
+        g.labels = labels
+        #g.data @chart['data'].last.map(&:to_i)
+        g.data 1,4
+        g.data 1,2
+        options.each_pair { |k, v| g.send :"#{k}=", v }
+        g.write chart_full_path
+      end
+
+      def render_pie_chart(options = {})
+        labels = {}
+        @chart['labels'].each_pair {|k,v| labels[k.to_i] = v}
+        g = Gruff::Pie.new(@chart['size'])
+        g.theme_pastel
+        g.title = @chart['title']
+        g.labels = labels
+        labels.each_with_index {|label, i| g.data label[i], @chart['data'].last[i]}
+        #options.each_pair { |k, v| g.send :"#{k}=", v } 
         g.write chart_full_path
       end
     end
