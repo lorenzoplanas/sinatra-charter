@@ -24,7 +24,7 @@ module Sinatra
       end
 
       def charts_dir
-        @charts_dir ||= "/tmp"
+        @charts_dir ||= "public/charts"
       end
 
       def chart_file_name
